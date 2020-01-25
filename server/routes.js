@@ -11,7 +11,7 @@ router.get('/login', cryptoController.login, (req, res) => res.status(200).json(
 router.get('/market', cryptoController.getMarket, (req, res) => res.status(200).json(res.locals.body));
 
 // limit router
-router.get('/limit', cryptoController.getLimit, (req, res) => res.status(200).json(res.locals));
+router.get('/limit', cryptoController.addLimit, cryptoController.getLimit, cryptoController.getBid, (req, res) => res.status(200).json(res.locals.body));
 
 
 //need to handle post for update user

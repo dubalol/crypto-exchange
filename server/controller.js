@@ -36,19 +36,39 @@ cryptoController.getMarket = (req, res, next) => {
 
 
 //get limit
-cryptoController.getLimit = (req, res, next) => {
+cryptoController.addLimit = (req, res, next) => {
   // add get limit query here
   // TODO 
   // need to sort the info in the query  
-  const order = "BID";
-  const getMarketQuery = (`SELECT * FROM orders WHERE txn_type = '${order}' LIMIT 5`)
-  db.query(getMarketQuery)
+  const addLimit = ['Will', 1.25, 1]
+  const insertLimit = (`INSERT INTO orders (username, txn_type, rate, eth) VALUES ('${addLimit[0]}','BID', ${addLimit[1]}, ${addLimit[2]})`);
+  db.query(insertLimit)
+  next();
+}
+
+cryptoController.getLimit = (req, res, next) => {
+  const getAsk = (`SELECT * FROM orders WHERE txn_type = 'ASK' ORDER BY rate DESC LIMIT 5`)
+  db.query(getAsk)
     .then(data => {
+      // console.log(data)
       res.locals.body = data.rows
       next();
     })
+}
+
+cryptoController.getBid = (req, res, next) => {
+  const getBid = (`SELECT * FROM orders WHERE txn_type = 'BID' ORDER BY rate ASC LIMIT 5`)
+  db.query(getBid)
+    .then(data => {
+      console.log(data)
+      res.locals.body[1] = data.rows
+      next()
+    })
 
 }
+
+//TODO 
+// all info coming in on req.body
 
 
 // update user
@@ -59,12 +79,14 @@ cryptoController.addLogin = (req, res, next) => {
 // update market
 cryptoController.updateMarket = (req, res, next) => {
   // insert into market
+  //delete shit 
 
 }
 
 //update limit
 cryptoController.updateLimit = (req, res, next) => {
   // insert into limit
+
 
 }
 
