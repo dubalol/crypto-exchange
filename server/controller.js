@@ -22,4 +22,25 @@ cryptoController.getLimit = (req, res, next) => {
 
 }
 
+
+// update user
+cryptoController.addLogin = (req, res, next) => {
+  // insert new user 
+}
+
+// update market
+cryptoController.updateMarket = (req, res, next) => {
+  // insert into market
+
+}
+
+
+//update limit
+cryptoController.updateLimit = (req, res, next) => {
+  // insert into limit
+
+}
+
+
+
 module.exports = cryptoController;
