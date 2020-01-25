@@ -34,7 +34,6 @@ cryptoController.updateMarket = (req, res, next) => {
 
 }
 
-
 //update limit
 cryptoController.updateLimit = (req, res, next) => {
   // insert into limit
