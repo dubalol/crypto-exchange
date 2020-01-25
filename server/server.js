@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const router = require('routes')
+const router = require('./routes.js')
 
 
 const port = 3000;
@@ -34,7 +34,7 @@ app.post('/bundle.js', (req, res) => {
 // error handler 
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: 'Express error handler caught unknown middleware error!!',
     status: 400,
     message: { err: 'An error occurred' },
   };

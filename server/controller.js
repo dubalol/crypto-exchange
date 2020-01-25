@@ -13,9 +13,8 @@ cryptoController.login = (req, res, next) => {
 // get market
 cryptoController.getMarket = (req, res, next) => {
   // add get market query here
-  console.log("market is working")
+  res.locals.body = 'something'
   next();
-
 }
 
 
