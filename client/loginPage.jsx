@@ -14,22 +14,45 @@ import { Portfolio } from './portfolio.jsx';
 // User tries to login and is verified against the database.
 // If successful, user is rerouted back to orderbook with their portfolio displayed.
 
-function LoginPage() {
-  const [isLoggedIn, updateLogin] = useState(false);
-  const [asks, updateAsks] = useState([5, 5, 5, 5, 3]); // 5 latest asks
-  const [bids, updateBids] = useState([2, 2, 2, 2, 1]); // 5 latest bids
-  const [portfolio, updatePortfolio] = useState(['user', 10000, 0]); // user, usd, eth balances
+function LoginPage(props) {
+  // const [isLoggedIn, updateLogin] = useState(false);
+  // const [asks, updateAsks] = useState([5, 5, 5, 5, 3]); // 5 latest asks
+  // const [bids, updateBids] = useState([2, 2, 2, 2, 1]); // 5 latest bids
+  // const [portfolio, updatePortfolio] = useState(['user', 10000, 0]); // user, usd, eth balances
 
-  let username = '';
+  const [success, updateSuccess] = useState(false);
+
 
   const handleClick = () => {
     // Fetch to server with username
+    // const postObj = {
+    //   method: "POST",
+    //   headers: {
+    //     "content-type": "application/json"
+    //   },
+    //   body: {
 
+    //   }
+    // };
+
+
+    fetch("/login")
+      .then((res) => res.json())
+      .then((data) => {
+        const { updateLogin, updatePortfolio, updateBids, updateAsks } = props;
+        const { username, usd, eth } = data.body;
+        // destructure asks and bids as well
+        updatePortfolio([username, usd, eth]);
+        //update asks and bids as well
+        
+        updateLogin(true);
+        updateSuccess(true);
+      })
     // Upon successful response
 
     // updateAsks()
     // updateBids()
-    updateLogin(true);
+    // updateLogin(true);
   };
 
   const storeUsername = (e) => {
@@ -38,17 +61,27 @@ function LoginPage() {
 
   let conditionalRenders;
 
-  if (isLoggedIn) {
-    conditionalRenders = <Redirect to="/" />;
-  } else {
-    conditionalRenders = <h1>Provide a valid log in</h1>;
+  // if (isLoggedIn) {
+  //   conditionalRenders = <Redirect to="/" />;
+  // } else {
+  //   conditionalRenders = <h1>Provide a valid log in</h1>;
+  // }
+
+
+  // if !success
+    // render the form
+  // else
+    // render a redirect
+  if (success) {
+    return <Redirect to="/" />;
   }
 
   return (
+    // <Redirect to="/" />
     <div>
       <input type="text" onChange={storeUsername} placeholder="username" />
       <button type="submit" onClick={handleClick}>Login</button>
-      {conditionalRenders}
+      {/* {conditionalRenders} */}
       <Router>
         {/* <Route exact path="/loginPage">
           <div>LoginPage</div>
