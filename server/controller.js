@@ -6,13 +6,15 @@ const cryptoController = {};
 // login controller
 cryptoController.login = (req, res, next) => {
   // add login query here
+  console.log("yeah this shit works! ")
 
 }
 
 // get market
 cryptoController.getMarket = (req, res, next) => {
   // add get market query here
-
+  res.locals.body = 'something'
+  next();
 }
 
 
