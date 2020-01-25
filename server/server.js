@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 const app = express();
-// const router = require('')
-// require the router 
+const router = require('routes')
+
 
 const port = 3000;
 
@@ -23,19 +23,7 @@ app.get('/', (req, res) => {
 });
 
 // receieves username and pw if auth return main page with portfolio, order book and chart 
-app.post('/login', 
-  // send to router
-);
-
-// marketplace buy button will send a request with the Username and amount of stock/crypto
-app.post('/marketplace',
-  // send to router
-);
-
-// limit button will send a post request with the Username, amount of stock/crypto and rate 
-app.post('/limit'
-  // send to router
-);
+app.use('/', router);
 
 app.post('/bundle.js', (req, res) => {
   const bundle = path.resolve(__dirname, '../build/bundle.js');
