@@ -26,5 +26,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'build'),
+    proxy: {
+      '/': 'http://localhost:3000'
+    }
   },
 };
