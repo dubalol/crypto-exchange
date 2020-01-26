@@ -5,13 +5,13 @@ const cryptoController = require('./controller.js');
 const router = express.Router();
 
 // login router 
-router.get('/login', cryptoController.login, (req, res) => res.status(200).json(res.locals));
+router.get('/login', cryptoController.login, cryptoController.getAsk, cryptoController.getBid, (req, res) => res.status(200).json(res.locals));
 
 // market router
-router.get('/market', cryptoController.getMarket, (req, res) => res.status(200).json(res.locals.body));
+// router.get('/market', cryptoController.getMarket, (req, res) => res.status(200).json(res.locals.body));
 
-// limit router
-router.get('/limit', cryptoController.addLimit, cryptoController.getLimit, cryptoController.getBid, (req, res) => res.status(200).json(res.locals.body));
+// add limit
+router.get('/limit', cryptoController.addLimit, cryptoController.getAsk, cryptoController.getBid, (req, res) => res.status(200).json(res.locals.body));
 
 
 //need to handle post for update user
