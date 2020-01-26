@@ -6,6 +6,8 @@ const cryptoController = {};
 
 // login controller
 cryptoController.login = (req, res, next) => {
+  console.log('server got request');
+  console.log(req.body);
   // add login query here
   //TODO
   //need to send something back if not found in the db
@@ -17,7 +19,8 @@ cryptoController.login = (req, res, next) => {
       else {
         // TODO
         // need to set body for user info
-        res.locals.body = res.locals.body.concat(data.rows);
+        console.log(data.rows);
+        res.locals.body = data.rows;
         next();
       }
 
@@ -56,7 +59,7 @@ cryptoController.getAsk = (req, res, next) => {
   const getAsk = (`SELECT * FROM orders WHERE txn_type = 'ASK' ORDER BY rate DESC LIMIT 5`)
   db.query(getAsk)
     .then(data => {
-      // console.log(data)
+      console.log(data.rows)
       res.locals.body = res.locals.body.concat(data.rows)
       next();
     })

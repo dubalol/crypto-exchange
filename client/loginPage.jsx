@@ -19,26 +19,28 @@ function LoginPage(props) {
   // const [asks, updateAsks] = useState([5, 5, 5, 5, 3]); // 5 latest asks
   // const [bids, updateBids] = useState([2, 2, 2, 2, 1]); // 5 latest bids
   // const [portfolio, updatePortfolio] = useState(['user', 10000, 0]); // user, usd, eth balances
+  const [username, updateUsername] = useState('');
 
   const [success, updateSuccess] = useState(false);
 
 
   const handleClick = () => {
     // Fetch to server with username
-    // const postObj = {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json"
-    //   },
-    //   body: {
-
-    //   }
-    // };
+    const loginPostBody = {
+      username
+    };
 
 
-    fetch("/login")
+    fetch("/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(loginPostBody)
+    })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const { updateLogin, updatePortfolio, updateBids, updateAsks } = props;
         const { username, usd, eth } = data.body;
         // destructure asks and bids as well
@@ -56,7 +58,8 @@ function LoginPage(props) {
   };
 
   const storeUsername = (e) => {
-    username = e.target.value;
+    updateUsername(e.target.value);
+    console.log(username);
   };
 
   let conditionalRenders;
