@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+// Portfolio must persist all aspects of state
 function Portfolio(props) {
 
   const { isLoggedIn, portfolio, asks, bids, updateLogin, updatePortfolio, updateAsks, updateBids } = props;
@@ -10,6 +11,13 @@ function Portfolio(props) {
 
   const handleLogout = () => {
     return updateLogin(false);
+  }
+
+  // To stay DRY when updating state in each market/limit order handler
+  const updateState = (newPortfolio, newAsks, newBids) => {
+    updatePortfolio(newPortfolio);
+    updateAsks(newAsks);
+    updateBids(newBids);
   }
 
   const handleMarketBuy = () => {
@@ -31,7 +39,7 @@ function Portfolio(props) {
     // fetch(/* route */)
     //   .then((res) => res.json())
     //   .then((data) => {
-    //     // update state (asks, bids, portfolio)
+    //     // updateState(portfolio, asks, bids)
 
     //   })
     //   .catch((err) => console.log(err));
@@ -56,7 +64,7 @@ function Portfolio(props) {
     // fetch(/* route */)
     //   .then((res) => res.json())
     //   .then((data) => {
-    //     // update state (asks, bids, portfolio)
+    //     // updateState(portfolio, asks, bids)
 
     //   })
     //   .catch((err) => console.log(err));
@@ -78,7 +86,7 @@ function Portfolio(props) {
     // fetch(/* route */)
     //   .then((res) => res.json())
     //   .then((data) => {
-    //     // update state (asks, bids) -- portfolio should not change yet
+    //     // updateState(portfolio, asks, bids)
 
     //   })
     //   .catch((err) => console.log(err));
