@@ -41,20 +41,25 @@ function LoginPage(props) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const { updateLogin, updatePortfolio, updateBids, updateAsks } = props;
-        const { username, usd, eth } = data.body;
-        // destructure asks and bids as well
-        updatePortfolio([username, usd, eth]);
-        //update asks and bids as well
-        
-        updateLogin(true);
-        updateSuccess(true);
-      })
-    // Upon successful response
 
-    // updateAsks()
-    // updateBids()
-    // updateLogin(true);
+        // Response should be boolean false if invalid username
+        if (!data) {
+          alert('Enter a valid username');
+          return;
+        }
+        const { updateLogin, updatePortfolio, updateBids, updateAsks } = props;
+        const { username, usd, eth } = data.body[0];
+        const asks = data.body.slice(1, 6).map((ask) => [ask.rate]);
+        const bids = data.body.slice(6).map((bid) => [bid.rate]);
+
+        updatePortfolio([username, usd, eth]);
+        updateAsks(asks);
+        updateBids(bids);
+
+        updateLogin(true);
+        updateSuccess(true); // should only occur if user logged in
+      })
+      .catch((err) => console.log(err));
   };
 
   const storeUsername = (e) => {
@@ -72,9 +77,9 @@ function LoginPage(props) {
 
 
   // if !success
-    // render the form
+  // render the form
   // else
-    // render a redirect
+  // render a redirect
   if (success) {
     return <Redirect to="/" />;
   }
